@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Lista de tareas{% endblock %}
+{% block content %}
+
+{% for task in task_list %}
+<h2>{{ task }} {% if task.is_completed == True %}✓{% endif %}</h2>
+{% for subtask in task.subtask_set.all %}
+{% if subtask.task_id == task.id %}
+<p> -  {{subtask.title}} {% if subtask.is_completed == True %}✓{% endif %}</p>
+{% endif %}
+{% endfor %}
+<a class="nav-link" href="{% url 'detail' request.user.get_username task.pk %}">Modificar tarea</a>
+<a class="nav-link" href="{% url 'delete' request.user.get_username task.pk %}">Borrar tarea </a>
+{% endfor %}
+
+<a class="nav-link" href="{% url 'create' request.user.get_username %}">Crear tarea
+
+</a>
+{% endblock %}
+
+

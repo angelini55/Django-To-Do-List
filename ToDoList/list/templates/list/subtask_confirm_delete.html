@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Borrar{% endblock %}
+{% block content %}
+
+<form method="post">{% csrf_token %}
+    <p>Seguro que deseas borrar la tarea "{{ object }}"?</p>
+    {{ form }}
+    <input type="submit" value="Confirmar">
+</form>
+
+{% endblock %}

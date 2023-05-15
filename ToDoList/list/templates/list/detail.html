@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Tarea{% endblock %}
+{% block content %}
+
+<h1>Title: {{ task.title }}</h1> <a class="nav-link" href="{% url 'update' request.user.get_username task.pk %}">Actualizar estado </a></p>
+{% for subtask in task.subtask_set.all %}
+{% if subtask.task_id == task.id %}
+<p>- {{subtask.title}} {% if subtask.is_completed == True %}✓{% endif %}<a class="nav-link" href="{% url 'sub-update' request.user.get_username task.pk subtask.pk %}">Modificar sub-tarea</a>
+    <a class="nav-link" href="{% url 'sub-delete' request.user.get_username task.pk subtask.pk %}">Borrar sub-tarea </a></p>
+{% endif %}
+{% endfor %}
+
+<a class="nav-link" href="{% url 'sub-create' request.user.get_username task.id %}">Crear sub-tarea
+
+{% endblock %}
